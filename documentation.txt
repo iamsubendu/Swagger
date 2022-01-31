@@ -1,0 +1,18 @@
+Swagger
+------------
+In Postman we have to set up for each api
+& also their is invisiblity for the no of api's.
+
+Swagger is an open sorce api documentation 
+framework to help developers to design ,
+document, and consume restful web services.
+
+It reads an api & extract in the form of 
+interactive ui called Swagger UI.
+
+It offers HTML view of API with JSON support.
+Its a popular tool for generating interactive 
+documentation from API.
+
+For any change in code, it automatically reads
+the code and update the Swagger UI.
