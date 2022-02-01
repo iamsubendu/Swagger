@@ -1,0 +1,213 @@
+swagger: "2.0"
+info: 
+  title: SwaggerUI Practice
+  description: This is my practice documentation.Lets test!!!
+  version: 1.0
+  contact: 
+    email: dassub789@gmail.com
+  license: 
+    name: Google 2.0
+    url: "http://google.org/"
+
+servers: 
+    -url: "http://localhost:8000/"
+    description: This is my local server
+    -url: "http://godsParticle.in/"
+    description: This is google server
+      
+schemes: [http,https]
+
+paths: 
+#Returns a string
+  /start:
+      get: 
+        summary: Returns a string
+        description: I am just making these all for practice
+        responses: 
+          200: 
+            description: Success
+            schema: 
+              type: string
+              example: "Fake string"
+          400: 
+            description: User Error
+            schema: 
+              type: string
+              example: "Fake string"
+          500: 
+            description: Internal server error
+            schema: 
+              type: string
+              example: "Fake string"
+
+#Returns an object
+  /user:
+      get: 
+        summary: Returns an object
+        description: I am just making these all for practice
+        responses: 
+          200: 
+            description: Success
+            schema: 
+              type: object
+              properties:
+                id:
+                  type: integer
+                firstName: 
+                  type: string
+                lastName: 
+                  type: string
+
+#Returns array of users
+  /users:
+    get:
+      summary: Return array of users
+      description: Return whole users in db
+      responses: 
+          200: 
+            description: Success
+            schema: 
+              type: array
+              items:
+                type: object
+                properties: 
+                  id:
+                    type: integer
+                  firstName: 
+                    type: string
+                  lastName: 
+                    type: string
+
+
+#Taking param for the data
+  /user/{userId}:
+    get: 
+      summary: Returns an user by id
+      description: I am just making these all for practice
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          type: integer
+          minimum: 1
+          description: Minimum 1.
+      responses:
+        200:
+          description: OK
+
+#Making post request
+  /createUser:
+    post: 
+      summary: Posting an user
+      produces: 
+        - application/json
+      consumes: 
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          schema: 
+           type: object
+           properties:
+              id:
+                type: integer
+              firstName: 
+                type: string
+              lastName: 
+                type: string
+      responses:
+        200:
+          description: OK
+        400:
+          description: Not Found
+
+
+#Making post request with defining schema
+  /createUserByDefiningSchema:
+    post: 
+      summary: Posting an user
+      produces: 
+        - application/json
+      consumes: 
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          schema: 
+            $ref: "#/components/schemas/User"
+      responses:
+        200:
+          description: OK
+        400:
+          description: Not Found
+
+#Accessing query
+  /userQuery:
+    get:
+      summary: Accessing query by user
+      parameters:
+        - in : query
+          name: id
+          type: integer
+          enum: [1,2,3]
+        - in : query
+          name: age
+          type: integer
+      responses:
+        200:
+          description: OK
+        400:
+          description: Not Found
+
+
+#File upload
+  /upload:
+    post:
+      summary: Using file upload
+      consumes: 
+        - multipart/form-data
+      parameters:
+          - in: formData
+            name: file
+            type: file
+            required: true
+            description: File upload
+          # - in: formData
+          #   name: id
+          #   type: integer
+          #   required: true
+          #   description: Id for file
+      responses:
+          200:
+            description: OK
+          400:
+            description: Not Found
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Always define schemas in the end
+#otherwise it wont take read for other paths
+
+components: 
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          required: true
+        firstName: 
+          type: string
+        lastName: 
+          type: string
